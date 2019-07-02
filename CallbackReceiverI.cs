@@ -2,8 +2,8 @@ using Demo;
 
 public sealed class CallbackReceiverI : CallbackReceiverDisp_
 {
-    public override void callback(Ice.Current current)
+    public override void callback(string messageCallback, Ice.Current current)
     {
-        System.Console.Out.WriteLine("received callback");
+        System.Console.Out.WriteLine("received callback: " + messageCallback);
     }
 }

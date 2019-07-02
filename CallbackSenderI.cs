@@ -3,13 +3,13 @@ using System;
 
 public sealed class CallbackSenderI : CallbackSenderDisp_
 {
-    public override void initiateCallback(CallbackReceiverPrx proxy, Ice.Current current = null)
+    public override void initiateCallback(CallbackReceiverPrx proxy, string message, Ice.Current current = null)
     {
         Console.Out.WriteLine("initiating callback");
 
         try
         {
-            proxy.callback();
+            proxy.callback(message);
         }
         catch (System.Exception ex)
         {

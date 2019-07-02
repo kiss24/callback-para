@@ -72,7 +72,9 @@ public class Client
                 }
                 if (line.Equals("t"))
                 {
-                    sender.initiateCallback(receiver);
+                    string message;
+                    message = Console.In.ReadLine();                    
+                    sender.initiateCallback(receiver, message);
                 }
                 else if (line.Equals("s"))
                 {
