@@ -25,7 +25,7 @@ public class Client
                 }
                 else
                 {
-                    status = run(communicator);
+                    status = Run(communicator);
                 }
             }
         }
@@ -38,7 +38,7 @@ public class Client
         return status;
     }
 
-    private static int run(Ice.Communicator communicator)
+    private static int Run(Ice.Communicator communicator)
     {
         var sender = CallbackSenderPrxHelper.checkedCast(communicator.propertyToProxy("CallbackSender.Proxy").
                                                          ice_twoway().ice_timeout(-1).ice_secure(false));
@@ -55,61 +55,58 @@ public class Client
         var receiver = CallbackReceiverPrxHelper.uncheckedCast(
             adapter.createProxy(Ice.Util.stringToIdentity("callbackReceiver")));
 
-        menu();
+        Menu();
 
-        string line = null;
+        int key = -1;
         do
         {
             try
             {
                 Console.Out.Write("==> ");
                 Console.Out.Flush();
-                line = Console.In.ReadLine();
-                
-                if (line == null)
-                {
+                key = Convert.ToInt32(Console.In.ReadLine());
+
+                if (key == -1)
                     break;
-                }
-                if (line.Equals("t"))
+
+                switch (key)
                 {
-                    string message;
-                    message = Console.In.ReadLine();                    
-                    sender.initiateCallback(receiver, message);
+                    case 0:
+                        string message;
+                        message = Console.In.ReadLine();
+                        sender.initiateCallback(receiver, message);
+                        break;
+                    case 1:
+                        sender.shutdown();
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        Menu();
+                        break;
+                    default:
+                        Console.Out.WriteLine("unknown command `" + key + "'");
+                        Menu();
+                        break;
                 }
-                else if (line.Equals("s"))
-                {
-                    sender.shutdown();
-                }
-                else if (line.Equals("x"))
-                {
-                    // Nothing to do
-                }
-                else if (line.Equals("?"))
-                {
-                    menu();
-                }
-                else
-                {
-                    Console.Out.WriteLine("unknown command `" + line + "'");
-                    menu();
-                }
+
             }
             catch (Exception ex)
             {
                 Console.Error.WriteLine(ex);
             }
         }
-        while (!line.Equals("x"));
+        while (!key.Equals(2));
 
         return 0;
     }
 
-    private static void menu()
+    private static void Menu()
     {
         Console.Out.Write("usage:\n"
-                          + "t: send callback\n"
-                          + "s: shutdown server\n"
-                          + "x: exit\n"
-                          + "?: help\n");
+                          + "0: send callback\n"
+                          + "1: shutdown server\n"
+                          + "2: exit\n"
+                          + "3: help\n");
     }
 }
