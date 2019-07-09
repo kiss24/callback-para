@@ -16,18 +16,4 @@ public sealed class CallbackSenderI : CallbackSenderDisp_
             Console.Error.WriteLine(ex);
         }
     }
-
-    public override void shutdown(Ice.Current current = null)
-    {
-        Console.Out.WriteLine("Shutting down...");
-
-        try
-        {
-            current.adapter.getCommunicator().shutdown();
-        }
-        catch (System.Exception ex)
-        {
-            Console.Error.WriteLine(ex);
-        }
-    }
 }

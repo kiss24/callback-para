@@ -3,61 +3,16 @@ using System;
 
 public class Client
 {
+    private static CallbackSenderPrx sender;
+    private static CallbackReceiverPrx receiver;
+    private static Ice.ObjectAdapter adapter;
+
     public static int Main(string[] args)
     {
-        int status = 0;
-
-        try
-        {
-            //
-            // The new communicator is automatically destroyed (disposed) at the end of the
-            // using statement
-            //
-            using (var communicator = Ice.Util.initialize(ref args, "config.client"))
-            {
-                //
-                // The communicator initialization removes all Ice-related arguments from args
-                //
-                if (args.Length > 0)
-                {
-                    Console.Error.WriteLine("too many arguments");
-                    status = 1;
-                }
-                else
-                {
-                    status = Run(communicator);
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.Error.WriteLine(ex);
-            status = 1;
-        }
-
-        return status;
-    }
-
-    private static int Run(Ice.Communicator communicator)
-    {
-        var sender = CallbackSenderPrxHelper.checkedCast(communicator.propertyToProxy("CallbackSender.Proxy").
-                                                         ice_twoway().ice_timeout(-1).ice_secure(false));
-        if (sender == null)
-        {
-            Console.Error.WriteLine("invalid proxy");
-            return 1;
-        }
-
-        var adapter = communicator.createObjectAdapter("Callback.Client");
-        adapter.add(new CallbackReceiverI(), Ice.Util.stringToIdentity("callbackReceiver"));
-        adapter.activate();
-
-        var receiver = CallbackReceiverPrxHelper.uncheckedCast(
-            adapter.createProxy(Ice.Util.stringToIdentity("callbackReceiver")));
-
         Menu();
 
         int key = -1;
+
         do
         {
             try
@@ -72,31 +27,30 @@ public class Client
                 switch (key)
                 {
                     case 0:
+                        Menu();
+                        break;
+                    case 1:
+                        Init();
+                        break;
+                    case 2:
                         string message;
                         message = Console.In.ReadLine();
                         sender.initiateCallback(receiver, message);
                         break;
-                    case 1:
-                        sender.shutdown();
-                        break;
-                    case 2:
-                        break;
                     case 3:
-                        Menu();
-                        break;
+                        return 0;
                     default:
                         Console.Out.WriteLine("unknown command `" + key + "'");
                         Menu();
                         break;
                 }
-
             }
             catch (Exception ex)
             {
                 Console.Error.WriteLine(ex);
             }
         }
-        while (!key.Equals(2));
+        while (!key.Equals(3));
 
         return 0;
     }
@@ -104,9 +58,43 @@ public class Client
     private static void Menu()
     {
         Console.Out.Write("usage:\n"
-                          + "0: send callback\n"
-                          + "1: shutdown server\n"
-                          + "2: exit\n"
-                          + "3: help\n");
+                          + "0: help\n"
+                          + "1: init\n"
+                          + "2: send callback\n"
+                          + "3: exit\n");
+    }
+
+    private static int Init()
+    {
+        int result = 0;
+
+        try
+        {
+            Ice.Communicator communicator = Ice.Util.initialize("config.client");
+
+            sender = CallbackSenderPrxHelper.checkedCast(communicator.propertyToProxy("CallbackSender.Proxy").
+                                                 ice_twoway().ice_timeout(-1).ice_secure(false));
+            if (sender == null)
+            {
+                Console.Error.WriteLine("invalid proxy");
+                result = 0;
+            }
+
+            adapter = communicator.createObjectAdapter("Callback.Client");
+            adapter.add(new CallbackReceiverI(), Ice.Util.stringToIdentity("callbackReceiver"));
+            adapter.activate();
+
+            receiver = CallbackReceiverPrxHelper.uncheckedCast(
+                adapter.createProxy(Ice.Util.stringToIdentity("callbackReceiver")));
+
+            result = 1;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine(ex);
+            result = 0;
+        }
+
+        return result;
     }
 }

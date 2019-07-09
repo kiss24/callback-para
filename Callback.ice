@@ -10,6 +10,5 @@ module Demo
     interface CallbackSender
     {
         void initiateCallback(CallbackReceiver* proxy, string message);
-        void shutdown();
     };
 };
