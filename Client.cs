@@ -87,11 +87,15 @@ public class Client
             receiver = CallbackReceiverPrxHelper.uncheckedCast(
                 adapter.createProxy(Ice.Util.stringToIdentity("callbackReceiver")));
 
+            Console.WriteLine("server connected");
+
             result = 1;
         }
         catch (Exception ex)
         {
             Console.Error.WriteLine(ex);
+
+            Console.WriteLine("connection failed");
             result = 0;
         }
 

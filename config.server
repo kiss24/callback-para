@@ -40,7 +40,7 @@ Ice.Warn.Connections=1
 # SSL Configuration
 #
 Ice.Plugin.IceSSL=IceSSL:IceSSL.PluginFactory
-IceSSL.DefaultDir=/home/zp/Documents/Ice/callback/certs
+IceSSL.DefaultDir=../../../certs
 IceSSL.CAs=cacert.pem
 IceSSL.CertFile=server.p12
 IceSSL.Password=password
