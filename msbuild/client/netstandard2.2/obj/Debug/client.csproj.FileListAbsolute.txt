@@ -1,0 +1,11 @@
+/home/zp/Documents/Ice/callback -para/msbuild/client/netstandard2.2/obj/Debug/client.csprojAssemblyReference.cache
+/home/zp/Documents/Ice/callback -para/msbuild/client/netstandard2.2/obj/Debug/client.csproj.CoreCompileInputs.cache
+/home/zp/Documents/Ice/callback -para/msbuild/client/netstandard2.2/obj/Debug/client.AssemblyInfoInputs.cache
+/home/zp/Documents/Ice/callback -para/msbuild/client/netstandard2.2/obj/Debug/client.AssemblyInfo.cs
+/home/zp/Documents/Ice/callback -para/msbuild/client/netstandard2.2/obj/Debug/client.dll
+/home/zp/Documents/Ice/callback -para/msbuild/client/netstandard2.2/obj/Debug/client.pdb
+/home/zp/Documents/Ice/callback -para/client.deps.json
+/home/zp/Documents/Ice/callback -para/client.runtimeconfig.json
+/home/zp/Documents/Ice/callback -para/client.runtimeconfig.dev.json
+/home/zp/Documents/Ice/callback -para/client.dll
+/home/zp/Documents/Ice/callback -para/client.pdb

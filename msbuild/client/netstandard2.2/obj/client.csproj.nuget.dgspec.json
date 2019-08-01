@@ -1,0 +1,71 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/zp/Documents/Ice-csharp/callback-para/msbuild/client/netstandard2.2/client.csproj": {}
+  },
+  "projects": {
+    "/home/zp/Documents/Ice-csharp/callback-para/msbuild/client/netstandard2.2/client.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/zp/Documents/Ice-csharp/callback-para/msbuild/client/netstandard2.2/client.csproj",
+        "projectName": "client",
+        "projectPath": "/home/zp/Documents/Ice-csharp/callback-para/msbuild/client/netstandard2.2/client.csproj",
+        "packagesPath": "/home/zp/.nuget/packages/",
+        "outputPath": "/home/zp/Documents/Ice-csharp/callback-para/msbuild/client/netstandard2.2/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/home/zp/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.5, )",
+              "autoReferenced": true
+            },
+            "zeroc.ice.net": {
+              "target": "Package",
+              "version": "[3.7.2, )"
+            },
+            "zeroc.icebuilder.msbuild": {
+              "target": "Package",
+              "version": "[5.0.4, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      },
+      "runtimes": {
+        "linuxmint.17.1-x64": {
+          "#import": []
+        }
+      }
+    }
+  }
+}
